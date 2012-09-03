@@ -235,6 +235,11 @@ table th {
 
 /* MISC  
 ----------------------------------------------------------*/
+.selectedrow 
+{ 
+    background-color: #EEEEEE; 
+}
+
 .clear {
     clear: both;
 }
