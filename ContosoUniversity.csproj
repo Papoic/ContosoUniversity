@@ -69,6 +69,10 @@
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
+    <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\IStudentRepository.cs" />
+    <Compile Include="DAL\StudentRepository.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Instructor.cs" />
     <Compile Include="Models\OfficeAssignment.cs" />
