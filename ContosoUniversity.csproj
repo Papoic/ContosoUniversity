@@ -72,6 +72,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Instructor.cs" />
     <Compile Include="Models\OfficeAssignment.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="ViewModels\AssignedCourseData.cs" />
     <Compile Include="ViewModels\EnrollmentDateGroup.cs" />
     <Compile Include="Controllers\HomeController.cs" />

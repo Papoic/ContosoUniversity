@@ -155,7 +155,7 @@ namespace ContosoUniversity.Controllers
             try
             {
                 // More efficient
-                // Student studentToDelete = new Student() { StudentID = id };
+                // Student studentToDelete = new Student() { PersonID = id };
                 // db.Entry(studentToDelete).State = EntityState.Deleted;
 
                 Student student = db.Students.Find(id);
