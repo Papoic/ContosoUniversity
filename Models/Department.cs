@@ -8,6 +8,9 @@ namespace ContosoUniversity.Models
     {
         public int DepartmentID { get; set; }
 
+        [Timestamp]
+        public Byte[] Timestamp { get; set; }
+
         [Required(ErrorMessage = "Department name is required.")]
         [MaxLength(50)]
         public string Name { get; set; }
