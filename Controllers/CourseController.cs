@@ -31,56 +31,67 @@ namespace ContosoUniversity.Controllers
             return View(course);
         }
 
-        //
-        // GET: /Course/Create
-
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+            PopulateDepartmentsDropDownList();
             return View();
-        } 
-
-        //
-        // POST: /Course/Create
+        }
 
         [HttpPost]
         public ActionResult Create(Course course)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Courses.Add(course);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
+                if (ModelState.IsValid)
+                {
+                    db.Courses.Add(course);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
+            catch (DataException)
+            {
+                //Log the error (add a variable name after DataException)
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            PopulateDepartmentsDropDownList(course.DepartmentID);
             return View(course);
         }
-        
-        //
-        // GET: /Course/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             Course course = db.Courses.Find(id);
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
+            PopulateDepartmentsDropDownList(course.DepartmentID);
             return View(course);
         }
-
-        //
-        // POST: /Course/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Course course)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(course).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(course).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
+            catch (DataException)
+            {
+                //Log the error (add a variable name after DataException)
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            PopulateDepartmentsDropDownList(course.DepartmentID);
             return View(course);
+        }
+
+        private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
+        {
+            var departmentsQuery = from d in db.Departments
+                                   orderby d.Name
+                                   select d;
+            ViewBag.DepartmentID = new SelectList(departmentsQuery, "DepartmentID", "Name", selectedDepartment);
         }
 
         //
