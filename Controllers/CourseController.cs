@@ -28,8 +28,8 @@ namespace ContosoUniversity.Controllers
 
         public ViewResult Details(int id)
         {
-            Course course = unitOfWork.CourseRepository.GetByID(id);
-            return View(course);
+            var query = "SELECT * FROM Course WHERE CourseID = @p0";
+            return View(unitOfWork.CourseRepository.GetWithRawSql(query, id).Single());
         }
 
         //
@@ -118,10 +118,20 @@ namespace ContosoUniversity.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult UpdateCourseCredits(int? multiplier)
+        {
+            if (multiplier != null)
+            {
+                ViewBag.RowsAffected = unitOfWork.CourseRepository.UpdateCourseCredits(multiplier.Value);
+            }
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             unitOfWork.Dispose();
             base.Dispose(disposing);
         }
+
     }
 }
